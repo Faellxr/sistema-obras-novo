@@ -1,21 +1,23 @@
-# 🏗️ ObraControl
+# Sistema de Gerenciamento de Obras
 
-Sistema web para gerenciamento de obras, com controle de custos, tarefas, equipe e prazos.
+Sistema web desenvolvido para controle de obras, apontamentos e prazos.
 
 ## 🚀 Tecnologias
 - Next.js
-- React
-- PostgreSQL
-- Prisma
+- TypeScript
+- Prisma ORM
+- PostgreSQL (Neon)
+- NextAuth
+
+## 📌 Funcionalidades
+- Autenticação de usuários
+- Cadastro e gerenciamento de obras
+- Apontamentos de atividades
+- Visualização em calendário
+- Dashboard
+
+## 🌐 Deploy
+https://sistema-obras-novo.vercel.app/
 
 ## 📄 Documentação
-A documentação completa do projeto está disponível no arquivo:
-
-👉 ObraControl_Documentacao.pdf
-
-## ▶️ Como rodar o projeto
-
-```bash
-npm install
-npx prisma migrate dev
-npm run dev
+Ver arquivo PDF no repositório
