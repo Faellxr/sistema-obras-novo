@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Obra {
+  id            String        @id @default(cuid())
+  nome          String
+  cliente       String?
+  endereco      String?
+  descricao     String?
+  status        ObraStatus    @default(ATIVA)
+  dataInicio    DateTime?
+  prazoFinal    DateTime?
+  custoEstimado Decimal?      @db.Decimal(10, 2)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  tarefas       Tarefa[]
+  apontamentos  Apontamento[]
+}
+
+model Servente {
+  id           String         @id @default(cuid())
+  nome         String
+  telefone     String?
+  valorDiaria  Decimal        @db.Decimal(10, 2)
+  ativo        Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  apontamentos Apontamento[]
+}
+
+model Apontamento {
+  id               String    @id @default(cuid())
+  semanaReferencia DateTime
+  diasTrabalhados  Int
+  valorDiaria      Decimal   @db.Decimal(10, 2)
+  custoTotal       Decimal   @db.Decimal(10, 2)
+  observacoes      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  obraId           String
+  serventeId       String
+
+  obra             Obra      @relation(fields: [obraId], references: [id], onDelete: Cascade)
+  servente         Servente  @relation(fields: [serventeId], references: [id], onDelete: Cascade)
+}
+
+model Tarefa {
+  id          String        @id @default(cuid())
+  titulo      String
+  descricao   String?
+  status      TarefaStatus  @default(A_FAZER)
+  prioridade  Prioridade    @default(MEDIA)
+  responsavel String?
+  dataLimite  DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  obraId      String
+  obra        Obra          @relation(fields: [obraId], references: [id], onDelete: Cascade)
+}
+
+enum ObraStatus {
+  ATIVA
+  PAUSADA
+  FINALIZADA
+}
+
+enum TarefaStatus {
+  A_FAZER
+  EM_ANDAMENTO
+  CONCLUIDO
+}
+
+enum Prioridade {
+  BAIXA
+  MEDIA
+  ALTA
+}
