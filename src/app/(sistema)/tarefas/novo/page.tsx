@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { PageHeader } from "@/components/layout/page-header";
 import { createTarefa } from "@/actions/tarefa-actions";
 import { prisma } from "@/lib/prisma";

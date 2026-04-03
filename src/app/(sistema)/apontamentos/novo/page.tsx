@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { PageHeader } from "@/components/layout/page-header";
 import { createApontamento } from "@/actions/apontamento-actions";
 import { prisma } from "@/lib/prisma";

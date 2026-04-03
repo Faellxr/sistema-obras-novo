@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
 import { PageHeader } from "@/components/layout/page-header";
 import { formatDate } from "@/lib/utils";
@@ -19,7 +21,7 @@ export default async function ObrasPage() {
 
         <Link
           href="/obras/novo"
-          className="w-full sm:w-auto rounded-xl bg-slate-900 px-4 py-3 text-center text-white hover:bg-slate-800"
+          className="w-full rounded-xl bg-slate-900 px-4 py-3 text-center text-white hover:bg-slate-800 sm:w-auto"
         >
           Nova obra
         </Link>
@@ -37,7 +39,6 @@ export default async function ObrasPage() {
                 <th className="p-4">Ações</th>
               </tr>
             </thead>
-
             <tbody>
               {obras.map((obra) => (
                 <tr key={obra.id} className="border-t border-slate-200">
@@ -49,19 +50,13 @@ export default async function ObrasPage() {
                       {obra.nome}
                     </Link>
                   </td>
-
                   <td className="p-4">{obra.cliente || "-"}</td>
-
                   <td className="p-4">
                     <StatusBadge value={obra.status} type="obra" />
                   </td>
-
                   <td className="p-4">
-                    {obra.prazoFinal
-                      ? formatDate(obra.prazoFinal)
-                      : "-"}
+                    {obra.prazoFinal ? formatDate(obra.prazoFinal) : "-"}
                   </td>
-
                   <td className="p-4">
                     <Link
                       href={`/obras/${obra.id}/editar`}
